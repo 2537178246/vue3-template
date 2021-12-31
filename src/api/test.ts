@@ -1,4 +1,4 @@
-import tRequest from '@/utils/service'
+import tRequest from '@/services'
 
 export function getTest(params:any) {
   return tRequest.request({
