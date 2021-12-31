@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": [
+      "es5",
+      "es6",
+      "es7",
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",//node环境
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "baseUrl": "src",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "experimentalDecorators": true
+  },
+  //  排除编译的文件
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "src/asset/json/*.json"
+  ],
+  "include": [
+    "src",
+    "typed-css.d.ts"//配置的.d.ts文件
+  ]
+}
