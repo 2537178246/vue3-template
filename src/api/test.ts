@@ -3,7 +3,7 @@ import tRequest from '@/services'
 export function getTest(params:any) {
   return tRequest.request({
     method: 'get',
-    url: 'XXXXX',
+    url: '/upLine/getIndxData',
     showLoading: false,
     params
   })

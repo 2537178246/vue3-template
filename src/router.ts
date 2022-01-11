@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
-const Home:any = () => import('../view/home/index.vue')
-const NotFound:any = () => import('../view/NoFound/index.vue')
+const Home:any = () => import('./view/home/index.vue')
+const NotFound:any = () => import('./view/NoFound/index.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
