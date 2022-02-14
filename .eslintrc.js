@@ -1,8 +1,9 @@
 module.exports = {
   root: true,
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    ecmaVersion: 12,
-    parser: 'babel-eslint',
+    ecmaVersion: 2020,
+    parser: '@typescript-eslint/parser',
     sourceType: 'module'
   },
   env: {
@@ -190,7 +191,7 @@ module.exports = {
     'yield-star-spacing': [2, 'both'],
     'yoda': [2, 'never'],
     'prefer-const': 2,
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    'no-debugger': process.env.VITE_NODE_ENV === 'production' ? 2 : 0,
     'object-curly-spacing': [2, 'always', {
       objectsInObjects: false
     }],
