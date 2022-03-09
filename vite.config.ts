@@ -8,7 +8,7 @@ function resolve(dir: string) {
 }
 
 
-export default ({ mode }) => {
+export default ({ mode }:{mode: any}) => {
   return defineConfig({
     server: {
       proxy: {

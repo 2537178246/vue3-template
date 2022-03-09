@@ -1,11 +1,8 @@
 import { TRequest } from './request/index'
 
-import { BASE_URL, TIMEOUT, Ws } from './request/config'
-
 const tRequest = new TRequest({
-  baseURL: BASE_URL,
-  timeout: TIMEOUT,
-  withCredentials: Ws,
+  timeout: 20000,
+  withCredentials: true,
   interceptors: {
     requestInterceptor: (config:any) => {
       console.log('成功拦截') // 发出前拦截

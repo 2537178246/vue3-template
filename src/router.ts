@@ -1,7 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-
-const Home:any = () => import('./view/home/index.vue')
-const NotFound:any = () => import('./view/NoFound/index.vue')
+import { clearRequest } from '@/services/request/cancelRequest'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -11,16 +9,24 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/home',
     name: '首页',
-    component: Home
+    component: () => import('./view/home/index.vue')
   },
   {
     path: '/:pathMatch(.*)*',
     name: '页面丢失啰',
-    component: NotFound
+    component: () => import('./view/NoFound/index.vue')
   }
 ]
 
 export const router = createRouter({
   history: createWebHashHistory(),
   routes: routes
+})
+
+router.beforeEach((to, from, next) => {
+  clearRequest()
+  if (to.name) {
+    typeof to.name === 'string' ? document.title = to.name : ''
+  }
+  next()
 })
