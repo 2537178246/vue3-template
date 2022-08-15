@@ -1,0 +1,8 @@
+{
+  "DevTokenKey": "GZH-TEST",
+  "ProTokenKey": "GZH-H5-Token",
+  "???PatternType": "System or Dashboard",
+  "PatternType": "Dashboard",
+  "WhiteRouter": ["/login"],
+  "LocalName": "Info"
+}

@@ -2,17 +2,20 @@ import axios, { Canceler } from 'axios'
 import type { AxiosInstance } from 'axios'
 import type { TRequestInterceptors, TRequestConfig } from './type'
 
-import { ElLoading, ElMessage, ElMessageBox } from 'element-plus'
-import { LoadingInstance } from 'element-plus/lib/components/loading/src/loading'
-import { pushRequest } from '@/services/request/cancelRequest'
+import { ElMessageBox } from 'element-plus'
+import { showFullLoading, hideFullLoading } from './loading'
+import { pushRequest } from '@/services/request/cancel-request'
 
-const DEAFULT_LOADING = false
+/**
+ * DEDEAFULT_LOADING must be true
+ * want change loading to ./index.ts
+ */
+const DEAFULT_LOADING: boolean = true
 
 export class TRequest {
   instance: AxiosInstance
   interceptors?: TRequestInterceptors
   showLoading: boolean
-  loading?: LoadingInstance
 
   // constructor(config: AxiosRequestConfig) { //替换为扩展后的TRequestConfig
   constructor(config: TRequestConfig) {
@@ -36,10 +39,7 @@ export class TRequest {
     this.instance.interceptors.request.use(
       (config) => {
         if (this.showLoading) {
-          this.loading = ElLoading.service({
-            lock: true,
-            text: '数据加载中'
-          })
+          showFullLoading()
         }
         config.cancelToken = new axios.CancelToken(function(cancel: Canceler) {
           pushRequest(cancel)
@@ -52,11 +52,11 @@ export class TRequest {
     )
     this.instance.interceptors.response.use(
       (res) => {
-        this.loading?.close()
+        hideFullLoading()
         return res
       },
       (err) => {
-        this.loading?.close()
+        hideFullLoading()
         return Promise.reject(err)
       }
     )
@@ -91,11 +91,11 @@ export class TRequest {
 
           if (resData.code && !(resData.code.toString() === '200' || resData.code.toString() === '100')) {
             console.error(resData.code)
-            ElMessage({
-              message: resData.msg || 'Error',
-              type: 'error',
-              showClose: true
-            })
+            // ElMessage({
+            //   message: resData.msg || 'Error',
+            //   type: 'error',
+            //   showClose: true
+            // })
             if (resData.code.toString() === '304' || resData.code.toString() === '401') {
               // to re-login
               ElMessageBox.confirm('你已经退出, 或者没有权限, 请重新登陆', '确认退出', {
@@ -115,11 +115,11 @@ export class TRequest {
         .catch((err) => {
           this.showLoading = DEAFULT_LOADING
           console.log(`err${err}`) // for debug
-          ElMessage({
-            message: err.message,
-            type: 'error',
-            showClose: true
-          })
+          // ElMessage({
+          //   message: err.message,
+          //   type: 'error',
+          //   showClose: true
+          // })
           reject(err)
           return err
         })

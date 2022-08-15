@@ -1,11 +1,28 @@
+<p align="center">
+  <a href="">
+    <img width="300px" src="https://avatars.githubusercontent.com/u/64510341?v=4">
+  </a>
+</p>
+
+- 💪 Vue 3 Composition API
+- 🔥 Written in TypeScript
+
 # Vue 3 + Typescript + Vite
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## config.json 👇
 
-## Recommended IDE Setup
+- `DevTokenKey` -> 测试本地Token
+- `ProTokenKey` -> 线上环境Token
+- `PatternType` -> 系统版本
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+  —— （System **带登陆版本，动态路由**）
 
-## Type Support For `.vue` Imports in TS
+  —— （Dashboard **大屏版本**）可在登陆模块暂未开发的时候进行开发
+- `WhiteRouter` -> 路由白名单，路由守卫会跳过白名单中路由
+- `LocalName` -> `localStorage`本地信息存储名称
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+## router.ts👇
+
+- `constantRoutes`
+- `localAsyncRoutes`
+- `routeList`

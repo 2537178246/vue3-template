@@ -18,5 +18,5 @@ export interface TRequestConfig<T = AxiosResponse> extends AxiosRequestConfig {
 
 // 取消请求token数组
 export interface CancelRequest {
-  cancelTokenArr?: []
+  cancelTokenArr?: any[]
 }

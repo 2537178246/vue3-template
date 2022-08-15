@@ -3,6 +3,7 @@ import { TRequest } from './request/index'
 const tRequest = new TRequest({
   timeout: 20000,
   withCredentials: true,
+  showLoading: true,
   interceptors: {
     requestInterceptor: (config:any) => {
       console.log('成功拦截') // 发出前拦截
