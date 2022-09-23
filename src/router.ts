@@ -25,6 +25,10 @@ export const constantRoutes: Array<RouteRecordRaw> = [
   }
 ]
 
+/**
+ * localAsyncRoutes
+ * the routes that need to be dynamically loaded based on user roles
+ */
 export const localAsyncRoutes: Array<RouteRecordRaw> = [
   {
     path: '/error',

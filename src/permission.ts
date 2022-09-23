@@ -23,7 +23,7 @@ router.beforeEach(async(to, from, next) => {
   // set page title
   if (to.meta.title) typeof to.meta.title === 'string' ? document.title = to.meta.title : ''
   const hasToken = useToken.getToken()
-  if (config.PatternType === 'System') {
+  if (config.PatternType === 'Business') {
     if (hasToken) {
       if (to.path === '/login') {
         next({ path: '/' })

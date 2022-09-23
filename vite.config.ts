@@ -13,8 +13,8 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
     server: {
       host: '0.0.0.0',
       proxy: {
-        [`${loadEnv(mode, process.cwd()).VITE_APP_BASE_API}`]: {
-          target: loadEnv(mode, process.cwd()).VITE_TEST_HOST, // 线上
+        '/api': {
+          target: 'target path', // 线上
           // rewrite: (path:any) => path.replace(/^\/api/, ''),
           changeOrigin: true,
           ws: true

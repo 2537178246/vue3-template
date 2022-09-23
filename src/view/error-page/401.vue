@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts" name="401">
-import errGif from '@/assets/401_images/401.gif'
+import errGif from '@/assets/img/401_images/401.gif'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
