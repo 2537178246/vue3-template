@@ -10,6 +10,7 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 import './permission'
 import './assets/css/styles/index.css'
 import './util/rem'
+import './index.css'
 
 const app = createApp(App)
 for (const [name, comp] of Object.entries(ElementPlusIconsVue)) {

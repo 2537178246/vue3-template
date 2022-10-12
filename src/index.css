@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.order {
+    width: 100%;
+    position: absolute;
+    height: calc(100vh - 124px);
+    transform: translateY(-10px);
+    background-color: #FFFFFF;
+    text-align: left;
+    border-radius: 5px 5px 0 0;
+    overflow: inherit;
+    padding: 0 20px 0;
+}
+
+.tj-card {
+    width: 307px;
+    height: 353px;
+    border-radius: 3px;
+}

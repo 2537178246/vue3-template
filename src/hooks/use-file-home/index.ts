@@ -1,6 +1,8 @@
 
 /**
  * 获取文件
+ * @author tuzhixiang
+ * @time 2022/08/17
  * @param url: string
  * examples /src/assets/img/xxx.png
  */
