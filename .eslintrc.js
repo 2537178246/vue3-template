@@ -11,9 +11,10 @@ module.exports = {
     node: true,
     es6: true,
   },
-  extends: ['plugin:vue/vue3-essential', 'eslint:recommended'],
+  extends: ['plugin:vue/vue3-essential', 'eslint:recommended', '@vue/eslint-config-typescript'],
   globals: {
-    "NodeJS": true
+    "NodeJS": true,
+    defineProps: 'readonly'
   },
 
   // add your custom rules here

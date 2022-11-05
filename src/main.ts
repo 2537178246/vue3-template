@@ -1,6 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import { router } from './router'
+import { registerStore } from './store'
+import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import ElementPlus from 'element-plus'
 import i18n from '@/i18n'
@@ -12,14 +15,23 @@ import './assets/css/styles/index.css'
 import './util/rem'
 import './index.css'
 
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+
 const app = createApp(App)
 for (const [name, comp] of Object.entries(ElementPlusIconsVue)) {
   app.component(name, comp)
 }
+
 app
-  .use(i18n)
+  .use(pinia)
+  .use(router)
   .use(ElementPlus, {
     locale: zhCn
   })
-  .use(router)
-  .mount('#app')
+
+registerStore()
+
+app.use(i18n)
+
+app.mount('#app')

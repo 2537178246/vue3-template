@@ -72,5 +72,5 @@ export const routeList: Array<RouteRecordRaw> = [
 
 export const router = createRouter({
   history: createWebHashHistory(),
-  routes: constantRoutes // 前置路由， 必备本地异步路由， 动态可配置路由
+  routes: routeList // 前置路由， 必备本地异步路由， 动态可配置路由
 })

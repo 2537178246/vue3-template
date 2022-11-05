@@ -1,15 +1,15 @@
 export namespace Store {
-  export interface locale {
-    state: {
-      localLang: Locale,
-      elementLangType: any
-    } | any,
-    reset(): void,
-    changeState(state: any): void
+  export interface localState {
+    localLang: Locale,
+    elementLangType: {
+      [key: string]: any
+    }
   }
 }
-export type Locale = 'zhCn'
-  | 'en'
+export enum Locale {
+  zn = 'zn',
+  en = 'en'
+}
 export interface UserType extends LoginType{
   userId?: string,
   username?: string,

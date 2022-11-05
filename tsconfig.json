@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
+    "baseUrl": "src",
     "target": "ESNext",
     "module": "ESNext",
+//    "useDefineForClassFields": true,
     "lib": [
-      "es5",
-      "es6",
-      "es7",
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "types": ["vite/client"],
+    "types": ["vite/client", "node"],
     "allowJs": true,
+    "suppressImplicitAnyIndexErrors": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -22,7 +22,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "baseUrl": "src",
+    "sourceMap": true,
     "paths": {
       "@/*": [
         "./*"
@@ -35,10 +35,7 @@
     "node_modules",
     "build",
     "dist",
-    "src/asset/json/*.json"
+    "src/**/*.json"
   ],
-  "include": [
-    "src",
-    "typed-css.d.ts"//配置的.d.ts文件
-  ]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }

@@ -1,21 +1,16 @@
-import { reactive } from 'vue'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'
-import { Store } from '@/types'
+import { reactive } from 'vue'
+import { Store, Locale } from '@/types'
+import { defineStore } from 'pinia'
 
-const localStateInit = () => ({
-  localLang: 'zhCn',
-  elementLangType: {
-    'zhCn': zhCn,
-    'en': en
-  }
-})
-export const localeStore = reactive<Store.locale>({
-  state: localStateInit(),
-  async changeState(state: any) {
-    console.log(state)
-  },
-  reset() {
-    localeStore.state = localStateInit()
-  }
+export const localeStore = defineStore('localeStore', () => {
+  const localState = reactive<Store.localState>({
+    localLang: Locale.zn,
+    elementLangType: {
+      cn: zhCn,
+      en: en
+    }
+  })
+  return { localState }
 })

@@ -15,6 +15,7 @@ pnpm-debug.log*
 yarn.lock
 package-lock.json*
 pnpm-lock.yaml
+stats.html
 
 # Editor directories and files
 .idea

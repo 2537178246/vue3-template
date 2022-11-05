@@ -4,9 +4,11 @@ import { localAsyncRoutes, router, routeList, constantRoutes } from './router'
 import { useToken } from '@/hooks'
 import { clearRequest } from '@/services/request/cancel-request'
 import config from './config.json'
-import { cancelToken, generateRoutes, getUserInfo, userObj } from './store'
+// import { generateRoutes } from './store'
+import appStore from './store'
 import { ElMessage } from 'element-plus'
 import { RouteRecordRaw } from 'vue-router'
+import { storeToRefs } from 'pinia'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -19,6 +21,10 @@ const addRoutes = (routeList: Array<RouteRecordRaw>) => {
 router.beforeEach(async(to, from, next) => {
   // start the progress bar
   NProgress.start()
+  const { userState } = storeToRefs(appStore.userStore)
+  const { cancelToken, getUserInfo } = appStore.userStore
+  const { generateRoutes } = appStore.permissionStore
+  console.log(userState)
   clearRequest()
   // set page title
   if (to.meta.title) typeof to.meta.title === 'string' ? document.title = to.meta.title : ''
@@ -28,7 +34,7 @@ router.beforeEach(async(to, from, next) => {
       if (to.path === '/login') {
         next({ path: '/' })
       } else {
-        const hasRoles = userObj.roles && userObj.roles.length > 0
+        const hasRoles = userState.value.roles && userState.value.roles.length > 0
         if (hasRoles) {
           next()
         } else {
