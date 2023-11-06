@@ -7,10 +7,10 @@ function setRem() {
   defaultScale = document.documentElement.clientWidth / 1920
   // 设置页面根节点字体大小, 字体大小最小为12
   const fontSize = baseSize * Math.min(defaultScale, 2)
-  document.documentElement.style.fontSize = fontSize + 'px'
+  document.documentElement.style.fontSize = `${fontSize}px`
 }
 // 初始化
 setRem()
 // 改变窗口大小时重新设置 rem,这里最好加上节流
-window.onresize = () => setRem()
+window.addEventListener('resize', () => setRem())
 export {}

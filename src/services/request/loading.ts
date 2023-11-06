@@ -1,13 +1,12 @@
-import { ElLoading } from 'element-plus'
-import { LoadingInstance } from 'element-plus/lib/components/loading/src/loading'
+import type { LoadingInstance } from 'element-plus/lib/components/loading/src/loading'
 
 let loading: LoadingInstance
-let requestLoadingCount: number = 0
+let requestLoadingCount = 0
 
 const startLoading = () => {
   loading = ElLoading.service({
     lock: true,
-    text: '数据加载中'
+    text: '数据加载中',
   })
 }
 

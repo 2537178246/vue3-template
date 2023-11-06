@@ -1,7 +1,7 @@
 import config from '../../config.json'
 
-export const useStorage = new class {
-  private readonly _localName: string;
+export const useStorage = new (class {
+  private readonly _localName: string
   constructor(localName: string) {
     this._localName = localName
   }
@@ -21,5 +21,5 @@ export const useStorage = new class {
   clearAll() {
     window.localStorage.clear()
   }
-}(config.LocalName)
+})(config.LocalName)
 // const useStorage = new UseStorage

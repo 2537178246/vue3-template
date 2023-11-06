@@ -5,33 +5,33 @@
     </el-button>
     <el-row>
       <el-col :span="12">
-        <h1 class="text-jumbo text-ginormous">
-          Oops!
-        </h1>
+        <h1 class="text-jumbo text-ginormous">Oops!</h1>
         <h2>你没有权限去该页面</h2>
-        <h6>如有不满请联系你领导</h6>
+        <h6>请尝试联系管理员添加权限</h6>
         <ul class="list-unstyled">
           <li>或者你可以去:</li>
           <li class="link-type">
-            <router-link to="/">
-              回首页
-            </router-link>
+            <router-link to="/"> 回首页 </router-link>
           </li>
         </ul>
       </el-col>
       <el-col :span="12">
-        <img :src="errGifImg" width="313" height="428" alt="Girl has dropped her ice cream.">
+        <img
+          :src="errGifImg"
+          width="313"
+          height="428"
+          alt="Girl has dropped her ice cream."
+        />
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script setup lang="ts" name="401">
-import errGif from '@/assets/img/401_images/401.gif'
-import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import errGif from '@/assets/img/401_images/401.gif'
 
-const errGifImg = computed(() => `${errGif}?${+new Date()}`)
+const errGifImg = computed(() => `${errGif}?${Date.now()}`)
 const route = useRoute()
 const router = useRouter()
 

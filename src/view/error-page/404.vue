@@ -2,15 +2,29 @@
   <div class="wscn-http404-container">
     <div class="wscn-http404">
       <div class="pic-404">
-        <img class="pic-404__parent" src="@/assets/img/404_images/404.png" alt="404">
-        <img class="pic-404__child left" src="@/assets/img/404_images/404_cloud.png" alt="404">
-        <img class="pic-404__child mid" src="@/assets/img/404_images/404_cloud.png" alt="404">
-        <img class="pic-404__child right" src="@/assets/img/404_images/404_cloud.png" alt="404">
+        <img
+          class="pic-404__parent"
+          src="@/assets/img/404_images/404.png"
+          alt="404"
+        />
+        <img
+          class="pic-404__child left"
+          src="@/assets/img/404_images/404_cloud.png"
+          alt="404"
+        />
+        <img
+          class="pic-404__child mid"
+          src="@/assets/img/404_images/404_cloud.png"
+          alt="404"
+        />
+        <img
+          class="pic-404__child right"
+          src="@/assets/img/404_images/404_cloud.png"
+          alt="404"
+        />
       </div>
       <div class="bullshit">
-        <div class="bullshit__oops">
-          OOPS!
-        </div>
+        <div class="bullshit__oops">OOPS!</div>
         <div class="bullshit__headline">
           {{ message }}
         </div>
@@ -26,9 +40,7 @@
 </template>
 
 <script setup lang="ts" name="404">
-import { computed } from 'vue'
-
-const message = computed<string>(() => '网管说这个页面你不能进......')
+const message = computed<string>(() => '这个页面你不能进......')
 </script>
 
 <style lang="less" scoped>

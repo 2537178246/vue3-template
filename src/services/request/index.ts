@@ -1,27 +1,30 @@
-import axios, { Canceler } from 'axios'
-import type { AxiosInstance } from 'axios'
-import type { TRequestInterceptors, TRequestConfig } from './type'
+import axios from 'axios'
+import { unzip } from './gzip'
 
-import { ElMessageBox } from 'element-plus'
-import { showFullLoading, hideFullLoading } from './loading'
-import { pushRequest } from '@/services/request/cancel-request'
+import { hideFullLoading, showFullLoading } from './loading'
+import { pushRequest } from './cancel-request'
+import { errorVNode } from './error-vnode'
+import type { AxiosInstance, Canceler } from 'axios'
+import type { TRequestConfig, TRequestInterceptors } from './type'
 
 /**
  * DEDEAFULT_LOADING must be true
  * want change loading to ./index.ts
  */
-const DEAFULT_LOADING: boolean = true
+const DEAFULT_LOADING = true
 
 export class TRequest {
   instance: AxiosInstance
   interceptors?: TRequestInterceptors
   showLoading: boolean
+  showError: boolean
 
   // constructor(config: AxiosRequestConfig) { //替换为扩展后的TRequestConfig
   constructor(config: TRequestConfig) {
     this.instance = axios.create(config)
 
     this.showLoading = config.showLoading ?? DEAFULT_LOADING
+    this.showError = config.showError
 
     // 替换后这里可以接受自定义传进来的interceptors了 将它保存
     this.interceptors = config.interceptors
@@ -41,9 +44,18 @@ export class TRequest {
         if (this.showLoading) {
           showFullLoading()
         }
-        config.cancelToken = new axios.CancelToken(function(cancel: Canceler) {
+        config.cancelToken = new axios.CancelToken((cancel: Canceler) => {
           pushRequest(cancel)
         })
+        // @ts-ignore
+        if (config.useCompress || config.useCompressWithCache) {
+          config.headers['use-my-compress'] = 'true'
+          // @ts-ignore
+          if (config.useCompressWithCache) {
+            // @ts-ignore
+            config.headers['use-my-cache'] = config.useCompressWithCache
+          }
+        }
         return config
       },
       (err) => {
@@ -53,6 +65,12 @@ export class TRequest {
     this.instance.interceptors.response.use(
       (res) => {
         hideFullLoading()
+        const { headers } = res.config
+        // 接口数据压缩
+        if (headers['use-my-compress'] && res.data.data) {
+          const unzipData = unzip(res.data.data)
+          res.data.data = JSON.parse(unzipData)
+        }
         return res
       },
       (err) => {
@@ -68,9 +86,14 @@ export class TRequest {
     return new Promise((resolve, reject) => {
       // 1，return Promise的话就需要将函数的返回值改为Promise，Promise需要传入一个泛型，我们定义为T,在前面全局响应拦截器里return出来的是res.data，这意味着我们已经将res的类型改掉了，改为了T类型
       // 请求进来后会先来到单个的请求的拦截器 然后判断showLoading并决定是否修改值 然后才会进入全局的拦截器 再然后才会进入单个的响应的拦截器
-      if (config.interceptors?.requestInterceptor) {
+      if (this.interceptors?.requestInterceptor) {
         // 如果有单独设置的请求拦截
-        config = config.interceptors.requestInterceptor(config) // config改为拦截处理后的config
+
+        // @ts-ignore
+        config = this.interceptors.requestInterceptor(config) // config改为拦截处理后的config
+      }
+      if (config.showError) {
+        this.showError = config.showError
       }
       // 如果单个请求的showLoading是false 他已经修改了全局中的showLoading值了 所以就不会显示loading了
       if (config.showLoading === false) {
@@ -89,38 +112,44 @@ export class TRequest {
           this.showLoading = DEAFULT_LOADING
           const resData = (res as any).data
 
-          if (resData.code && !(resData.code.toString() === '200' || resData.code.toString() === '100')) {
-            console.error(resData.code)
-            // ElMessage({
-            //   message: resData.msg || 'Error',
-            //   type: 'error',
-            //   showClose: true
-            // })
-            if (resData.code.toString() === '304' || resData.code.toString() === '401') {
+          if (
+            resData.code &&
+            !['0', '100', '200'].includes(resData.code.toString())
+          ) {
+            if (
+              resData.code.toString() === '304' ||
+              resData.code.toString() === '401'
+            ) {
               // to re-login
-              ElMessageBox.confirm('你已经退出, 或者没有权限, 请重新登陆', '确认退出', {
-                confirmButtonText: '重新登陆',
-                cancelButtonText: '取消',
-                type: 'warning'
-              })
-                .then(() => {
-                  // to index && home
-                })
             }
-            return Promise.reject(new Error(resData.msg || 'Error'))
+            return Promise.reject(
+              `[${resData.code}]: ${resData.message || '错误的请求!'}`
+            )
           }
 
           resolve(res)
         })
         .catch((err) => {
+          if (err.message === '路由跳转取消请求') {
+            return reject(err)
+          }
+          let msg = err
+          // new Error
+          if (typeof err === 'object') {
+            msg = `[${err.name}]: ${err.message}`
+          }
+
           this.showLoading = DEAFULT_LOADING
-          console.log(`err${err}`) // for debug
-          // ElMessage({
-          //   message: err.message,
-          //   type: 'error',
-          //   showClose: true
-          // })
-          reject(err)
+
+          if (this.showError) {
+            ElMessage.error({
+              showClose: true,
+              message: errorVNode(msg),
+            })
+          }
+
+          console.warn(`[API]: ${config.url}`) // for debug
+          console.error(err) // for debug
           return err
         })
     })

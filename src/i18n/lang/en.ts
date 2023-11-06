@@ -1,6 +1,8 @@
-// 英文语言包：\src\i18n\lang\en.ts
+/**
+ * @desc 英文语言包
+ */
 export default {
   home: {
-    name: 'this is home'
-  }
+    name: 'this is home',
+  },
 }

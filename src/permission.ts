@@ -1,14 +1,11 @@
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import { localAsyncRoutes, router, routeList, constantRoutes } from './router'
+import { type RouteRecordRaw } from 'vue-router'
 import { useToken } from '@/hooks'
 import { clearRequest } from '@/services/request/cancel-request'
+import { constantRoutes, localAsyncRoutes, routeList, router } from './router'
 import config from './config.json'
-// import { generateRoutes } from './store'
-import appStore from './store'
-import { ElMessage } from 'element-plus'
-import { RouteRecordRaw } from 'vue-router'
-import { storeToRefs } from 'pinia'
+import { permissionStore, userStore } from './store'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -18,23 +15,24 @@ const addRoutes = (routeList: Array<RouteRecordRaw>) => {
     else router.addRoute(item)
   })
 }
-router.beforeEach(async(to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // start the progress bar
   NProgress.start()
-  const { userState } = storeToRefs(appStore.userStore)
-  const { cancelToken, getUserInfo } = appStore.userStore
-  const { generateRoutes } = appStore.permissionStore
-  console.log(userState)
+  const user = userStore()
+  const { cancelToken, getUserInfo } = userStore()
+  const { generateRoutes } = permissionStore()
   clearRequest()
   // set page title
-  if (to.meta.title) typeof to.meta.title === 'string' ? document.title = to.meta.title : ''
+  if (to.meta.title) {
+    typeof to.meta.title === 'string' ? (document.title = to.meta.title) : ''
+  }
   const hasToken = useToken.getToken()
   if (config.PatternType === 'Business') {
     if (hasToken) {
       if (to.path === '/login') {
         next({ path: '/' })
       } else {
-        const hasRoles = userState.value.roles && userState.value.roles.length > 0
+        const hasRoles = user.roles && user.roles.length > 0
         if (hasRoles) {
           next()
         } else {
@@ -43,23 +41,21 @@ router.beforeEach(async(to, from, next) => {
             const accessRoutes = await generateRoutes(roles)
             await addRoutes(accessRoutes)
             next({ ...to, replace: true })
-          } catch (e) {
+          } catch {
             await cancelToken()
             ElMessage.error('登陆出错，请重试')
             next(`/login?redirect=${to.path}`)
           }
         }
       }
-    } else {
-      if (config.WhiteRouter.indexOf(to.path) !== -1) next()
-      else next(`/login?redirect=${to.path}`)
-    }
+    } else if (config.WhiteRouter.includes(to.path)) next()
+    else next(`/login?redirect=${to.path}`)
   } else {
     const constantLength = constantRoutes.flatMap((route) => {
       if (!route.children) {
         return [route]
       }
-      return [route.children, route]
+      return [...route.children, route]
     })
     if (router.getRoutes().length > constantLength.length) {
       next()

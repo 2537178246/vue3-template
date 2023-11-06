@@ -1,41 +1,25 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
     "target": "ESNext",
+    "useDefineForClassFields": true,
     "module": "ESNext",
-//    "useDefineForClassFields": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "types": ["vite/client", "node"],
-    "allowJs": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "Node",
     "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",//node环境
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
     "jsx": "preserve",
     "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
+    "types": ["vite/client", "node"],
+    "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "./*"
-      ]
-    },
-    "experimentalDecorators": true
+      "@/*": ["./src/*"],
+      "#/*": ["./src/types/*"],
+      "@public/*": ["./public/*"]
+    }
   },
-  //  排除编译的文件
-  "exclude": [
-    "node_modules",
-    "build",
-    "dist",
-    "src/**/*.json"
-  ],
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

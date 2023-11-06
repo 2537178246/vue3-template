@@ -1,15 +1,21 @@
 import tRequest from '@/services'
-import { LoginType } from '@/types'
-// 登陆
-export function login(data: LoginType): Promise<any> {
-  return tRequest.post({
+import type { LoginType } from '@/types'
+
+/**
+ * @desc 登陆
+ * @param data
+ */
+export const login = (data: LoginType): Promise<any> =>
+  tRequest.post({
     url: '/zjjc/system/user/login',
-    data
+    data,
   })
-}
-// 获取用户信息
-export function getInfo(token: string) {
-  return tRequest.get({
-    url: `/zjjc/system/user/getInfo/${token}`
+
+/**
+ * @desc 获取用户信息
+ * @param token
+ */
+export const getInfo = (token: string) =>
+  tRequest.get({
+    url: `/zjjc/system/user/getInfo/${token}`,
   })
-}

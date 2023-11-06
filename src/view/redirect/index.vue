@@ -1,6 +1,5 @@
 <script>
-import { useRouter, useRoute } from 'vue-router'
-import { h, defineComponent } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
   mounted() {
@@ -11,6 +10,6 @@ export default defineComponent({
   },
   render() {
     return h('div', {}) // avoid warning message
-  }
+  },
 })
 </script>

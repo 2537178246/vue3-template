@@ -1,3 +1,53 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  .hx-flex-center {
+    @apply flex justify-center items-center
+  }
+
+  .hx-flex-between {
+    @apply flex justify-between items-center
+  }
+
+  :root {
+    --color-base: theme('colros.white');
+    --color-base-bg: '#fff';
+  }
+
+  .theme-dark {
+    --color-base: #FFFFFF;
+    --color-base-bg: #626aef;
+    --el-text-color-regular: '#fff';
+    --el-fill-color-blank: '#626aef';
+  }
+
+  .theme-light {
+    --color-base: #2c3e50;
+    --color-base-bg: #FFFFFF;
+  }
+}
+
+/* 取消默认样式 */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

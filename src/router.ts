@@ -1,4 +1,5 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 
 export const constantRoutes: Array<RouteRecordRaw> = [
   {
@@ -7,22 +8,22 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: () => import('@/view/redirect/index.vue')
-      }
-    ]
+        component: () => import('@/view/redirect/index.vue'),
+      },
+    ],
   },
   {
     path: '/404',
-    component: () => import('@/view/error-page/404.vue')
+    component: () => import('@/view/error-page/404.vue'),
   },
   {
     path: '/401',
-    component: () => import('@/view/error-page/401.vue')
+    component: () => import('@/view/error-page/401.vue'),
   },
   {
     path: '/',
-    redirect: '/home'
-  }
+    redirect: '/home',
+  },
 ]
 
 /**
@@ -36,41 +37,43 @@ export const localAsyncRoutes: Array<RouteRecordRaw> = [
     name: 'ErrorPages',
     meta: {
       title: '错误页面',
-      icon: '404'
+      icon: '404',
     },
     children: [
       {
         path: '401',
         component: () => import('@/view/error-page/401.vue'),
         name: 'Page401',
-        meta: { title: '401' }
+        meta: { title: '401' },
       },
       {
         path: '404',
         component: () => import('@/view/error-page/404.vue'),
         name: 'Page404',
-        meta: { title: '404' }
-      }
-    ]
+        meta: { title: '404' },
+      },
+    ],
   },
   // 404 page must be placed at the end !!!
-  { path: '/:pathMatch(.*)*', redirect: '/404' }
+  { path: '/:pathMatch(.*)*', redirect: '/404' },
 ]
 
 export const routeList: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/home'
-  }, {
+    redirect: '/home',
+  },
+  {
     path: '/home',
     name: 'home',
     meta: {
-      title: '首页'
+      title: '首页',
     },
-    component: () => import('./view/home/index.vue')
-  }]
+    component: () => import('./view/home/index.vue'),
+  },
+]
 
 export const router = createRouter({
   history: createWebHashHistory(),
-  routes: routeList // 前置路由， 必备本地异步路由， 动态可配置路由
+  routes: constantRoutes, // 前置路由， 必备本地异步路由， 动态可配置路由
 })

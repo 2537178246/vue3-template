@@ -1,6 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Store {
   export interface localState {
-    localLang: Locale,
+    localLang: Locale
     elementLangType: {
       [key: string]: any
     }
@@ -8,25 +9,25 @@ export namespace Store {
 }
 export enum Locale {
   zn = 'zn',
-  en = 'en'
+  en = 'en',
 }
-export interface UserType extends LoginType{
-  userId?: string,
-  username?: string,
-  token?: string | undefined,
-  userInfo?: {},
-  phone?: string,
-  namespace?: string,
-  roles?: [],
-  name?:string
+export interface UserType extends LoginType {
+  userId?: string
+  username?: string
+  token?: string | undefined
+  userInfo?: {}
+  phone?: string
+  namespace?: string
+  roles?: []
+  name?: string
 }
 
-export interface LoginType{
-  username?: string,
+export interface LoginType {
+  username?: string
   password?: string
 }
 
-export interface RouteType{
-  routes: any[],
+export interface RouteType {
+  routes: any[]
   addRoutes: any[]
 }

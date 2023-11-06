@@ -14,6 +14,9 @@ export interface TRequestInterceptors<T = AxiosResponse> {
 export interface TRequestConfig<T = AxiosResponse> extends AxiosRequestConfig {
   interceptors?: TRequestInterceptors<T> // 在这两处加上泛型是为了让TRequestInterceptors的泛型不再是AxiosResponse的时候此处不受影响 使得两个接口更加独立
   showLoading?: boolean
+  showError?: boolean
+  useCompress?: boolean
+  useCompressWithCache?: boolean
 }
 
 // 取消请求token数组

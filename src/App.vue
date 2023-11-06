@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import appStore from '@/store'
-import { computed, onMounted } from 'vue'
-import { storeToRefs } from 'pinia'
+import { version as vueVersion } from 'vue/package.json'
+import { localeStore } from '@/store'
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 onMounted(() => {
-  hello('V3-Tem', '2.1.6')
+  hello('V3-Tem', vueVersion)
 })
-const { localState } = storeToRefs(appStore.localeStore)
-const locale = computed(() => localState.value.elementLangType[localState.value.localLang])
+const localState = localeStore()
 const hello = (title: string, version: string) =>
-  console.log(`%c ${title} %c V${version} `,
+  console.log(
+    `%c ${title} %c V${version}`,
     'padding: 2px 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060; font-weight: bold;',
-    'padding: 2px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #42c02e; font-weight: bold;')
+    'padding: 2px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #42c02e; font-weight: bold;'
+  )
 </script>
 
-<template>
-  <el-config-provider :locale="locale">
-    <router-view></router-view>
+<template class="text-base bg-b-base">
+  <el-config-provider :locale="localState.locale">
+    <router-view />
   </el-config-provider>
 </template>
 

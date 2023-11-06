@@ -1,3 +1,3 @@
-export interface AllObj <T = any> {
+export interface AllObj<T = any> {
   [key: string]: T
 }

@@ -1,6 +1,6 @@
 <p align="center">
   <a href="http://hxgis.com/">
-    <img width="300px" src="https://hxgit.hxgis.com/uploads/-/system/appearance/header_logo/1/logo.png">
+    <img width="300px" src="https://hxgit.hxgis.com/uploads/-/system/appearance/header_logo/1/logo.png" alt=''>
   </a>
 </p>
 
@@ -9,15 +9,21 @@
 
 # Vue 3 + Typescript + Vite
 
-<span style="display: inline-block;padding: 2px 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060; font-weight: bold">Vue3</span><span></span><span style="display: inline-block;padding: 2px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #42c02e; font-weight: bold">3.2.37</span><span></span>
-<span style="display: inline-block;padding: 2px 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060; font-weight: bold">TypeScript</span><span></span><span style="display: inline-block;padding: 2px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #42c02e; font-weight: bold">4.4.3</span><span></span>
-<span style="display: inline-block;padding: 2px 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060; font-weight: bold">Vite</span><span></span><span style="display: inline-block;padding: 2px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #42c02e; font-weight: bold">3.0.7</span><span></span>
+<span style="display: inline-block;padding: 2px 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060; font-weight: bold">
+Vue3</span><span></span><span style="display: inline-block;padding: 2px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #42c02e; font-weight: bold">
+3.2.37</span><span></span>
+<span style="display: inline-block;padding: 2px 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060; font-weight: bold">
+TypeScript</span><span></span><span style="display: inline-block;padding: 2px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #42c02e; font-weight: bold">
+4.4.3</span><span></span>
+<span style="display: inline-block;padding: 2px 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060; font-weight: bold">
+Vite</span><span></span><span style="display: inline-block;padding: 2px 1px; border-radius: 0 3px 3px 0; color: #fff; background: #42c02e; font-weight: bold">
+3.0.7</span><span></span>
 
-# 项目说明 <span style="color: #F43D7A">*</span>
+# 项目描述 <span style="color: #F43D7A">*</span>
 
 - 项目名称👇
 
-  
+
 - 启动时间👇
 
 
@@ -38,7 +44,32 @@
 
 - jenkins 地址👇
 
+# 如何运行
 
+```yaml
+// npm
+npm i
+npm run dev
+npm run build
+// yarn
+yarn
+yarn dev
+yarn build
+// pnpm
+pnpm i
+pnpm dev
+pnpm build
+```
+
+# 业务介绍
+
+| 项目目录       | 页面描述 | 页面路由       |
+|------------|------|------------|
+| error-page | 错误跳转 | 404/403/.. |
+| redirect   | 重定向  | redirect   |
+| home       | 首页   | /home      |
+
+# 项目备注
 
 ## config.json 👇
 
@@ -54,15 +85,15 @@
 
 ## router.ts👇
 
-```typescript
+````typescript
 /**
  * If PatternType === 'Business'（can not find PatternType? see here⬆️）
  * You will see the routing rules
  * The backstage is xuyan configured
  * If you have something special
  * Please modify manually
- * 
- * 
+ *
+ *
  * Note: sub-menu only appear when route children.length >= 1
  *
  * hidden: true                   if set true, item will not show in the sidebar(default is false)
@@ -81,11 +112,11 @@
     activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
   }
  */
-```
+````
+
 - `constantRoutes` 固定路由
 - `localAsyncRoutes` 本地异步路由
 - `routeList` 自己配置的路由
-
 
 ## 华信联创知识库👇
 
